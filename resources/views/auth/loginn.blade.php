@@ -12,7 +12,7 @@
 <div class="login-signup-form animated fadeInDown">
             <div class="form">
                 <form>
-                    <h1 class='title'>Sign up for free</h1>
+                    <h1 class='title'>Signup for free</h1>
                     <input type="text" placeholder="Full Name" />
                     <input type="email" placeholder="Email" />
                     <input type="password" placeholder="Password" />

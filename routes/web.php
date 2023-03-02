@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostsController;
+use App\Http\Controllers\CommentsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,4 +22,6 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::resource('/feetbook',PostsController::class);
+Route::resource('/facebook',PostsController::class);
+Route::get('/show/{id}',[CommentsController::class,'show']);
+Route::resource('/comments',CommentsController::class);

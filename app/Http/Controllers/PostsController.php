@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\comments;
 use Illuminate\Http\Request;
+use App\Models\Posts;
 
 class PostsController extends Controller
 {
@@ -11,8 +13,10 @@ class PostsController extends Controller
      */
     public function index()
     {
-        // dd('red');
-       return view('feetbook');
+        $posts = Posts::with('user','comments')->get();
+       
+     
+       return view('facebook')->with('posts',$posts);
     }
 
     /**
@@ -28,15 +32,24 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       
+        $input  = $request->all();
+        if($image = $request->file('image')){
+            $title = date('Ymdhis') .'.'. $image->getClientOriginalExtension();
+            $image->move(public_path('img') ,$title);
+            $input['image'] = $title;
+        }
+        Posts::create($input);
+        return back();
     }
+
 
     /**
      * Display the specified resource.
      */
     public function show(string $id)
     {
-        //
+        
     }
 
     /**

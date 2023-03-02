@@ -19,7 +19,7 @@
                     <input type="password" placeholder="Password Confirmation" />
                     <button class="btn btn-block">Sign up</button>
                     <p class="message">
-                        Already Registred? <Link to="/login">Sign in</Link>
+                        Already Registred? <Link to="/login">Sig"n in</Link>
                     </p>
                 </form>
             </div>

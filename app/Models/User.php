@@ -42,7 +42,21 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function post(){
+    public function posts(){
         return $this->hasMany(Posts::class,'id','user_id');
     }
+
+    public function comments(){
+        return $this->hasMany(comments::class,'user_id');
+    }
+
+    public function Likes(){
+        return $this->hasMany(Likes::class,'user_id');
+    }
+
+
+
+
+    
+
 }

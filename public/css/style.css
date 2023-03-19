@@ -735,6 +735,7 @@ nav .right-side .user-icons .icon.has-notification::after {
     align-items: center;
     margin-top: 20px;
     flex: 1;
+    padding-bottom: 2px;
 }
 
 .posts .view .view-post .actions-container .action .icon {
@@ -1149,4 +1150,12 @@ fieldset:disabled .btn {
 
 #icon_image {
     width: 23px;
+}
+
+.action .thumbs_up {
+    cursor: pointer;
+}
+
+.item-row {
+    cursor: pointer;
 }

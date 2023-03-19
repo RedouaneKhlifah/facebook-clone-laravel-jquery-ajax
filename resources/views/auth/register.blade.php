@@ -49,7 +49,7 @@
                     </div>
                     <button class="btn btn-block">Sign up</button>
                     <p class="message">
-                        Already Registred? <Link to="/login">Sign in</Link>
+                        Already Registred? <a href="login">Sign in</a>
                     </p>
                 </form>
             </div>

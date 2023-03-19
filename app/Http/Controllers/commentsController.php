@@ -34,6 +34,12 @@ class commentsController extends Controller
         // dd($request->all());
         $input = $request->all();
         comments::create($input);
+
+        $newcomment = comments::latest()->with('user')->first();
+        return response()->json([
+            'status' => 200,
+            'post' => $newcomment
+        ]);
     }
 
     /**
@@ -41,12 +47,13 @@ class commentsController extends Controller
      */
     public function show(string $id)
     {
-        $post = Posts::find($id);
+        $post = Posts::with('user','comments.user')->find($id);
+        // $post->comments = $post->comments->sortByDesc('id');
+        
         return response()->json([
             'status' => 200,
-            'post' => $post,
+            'post' => $post
         ]);
-     
     }
 
     /**

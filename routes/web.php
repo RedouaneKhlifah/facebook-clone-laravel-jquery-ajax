@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\CommentsController;
+use App\Http\Controllers\LikesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,3 +26,4 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::resource('/facebook',PostsController::class);
 Route::get('/show/{id}',[CommentsController::class,'show']);
 Route::resource('/comments',CommentsController::class);
+Route::resource('/likes',LikesController::class);

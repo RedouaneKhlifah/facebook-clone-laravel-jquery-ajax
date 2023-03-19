@@ -10,13 +10,14 @@ const post_btn = document.querySelector("#post_btn");
 console.log(post_btn);
 post_btn.disabled = true;
 
-imageinput.addEventListener("click", () => {
-    inputimagefire.click();
-});
+// imageinput.addEventListener("click", () => {
+//     inputimagefire.click();
+// });
 
 inputimagefire.addEventListener("change", () => {
     if (inputimagefire.files.length != 0) {
         imagediv.innerHTML = "";
+        console.log(inputimagefire.files);
         // Input is not filled, do nothing
         // Input is filled, create image element and add it to the div
         const img = document.createElement("img");
@@ -72,49 +73,49 @@ commentsIcon.forEach((element) => {
 
 // }
 
-///// modal ///////
-let desc_comments_modal = document.querySelector(".desc_comments_modal");
-let desc_image_modal = document.querySelector(".desc_image_modal");
-let post_id = document.querySelector("#post_id");
-let modal_commentscontainer = document.querySelector(
-    ".modal_commentscontainer"
-);
+// ///// modal ///////
+// let desc_comments_modal = document.querySelector(".desc_comments_modal");
+// let desc_image_modal = document.querySelector(".desc_image_modal");
+// let post_id = document.querySelector("#post_id");
+// let modal_commentscontainer = document.querySelector(
+//     ".modal_commentscontainer"
+// );
 
-let comments_section = document.querySelector(".comments_section");
+// let comments_section = document.querySelector(".comments_section");
 
-let document_icon = document.querySelectorAll(".comment_icon");
-let current_id;
+// let document_icon = document.querySelectorAll(".comment_icon");
+// let current_id;
 
-document_icon.forEach((element) => {
-    element.addEventListener("click", (e) => {
-        let parent = element.parentElement.parentElement;
-        console.log(parent);
+// document_icon.forEach((element) => {
+//     element.addEventListener("click", (e) => {
+//         let parent = element.parentElement.parentElement;
+//         console.log(parent);
 
-        //////// get element //////
-        let desc = parent.querySelector(".post_description");
-        let img = parent.querySelector(".post_image");
-        let org_post_id = parent.querySelector(".org_post_id");
-        let commantscoantiner = parent.querySelector(".commentscontainer");
+//         //////// get element //////
+//         let desc = parent.querySelector(".post_description");
+//         let img = parent.querySelector(".post_image");
+//         let org_post_id = parent.querySelector(".org_post_id");
+//         let commantscoantiner = parent.querySelector(".commentscontainer");
 
-        ////////// change modal elemrnt ////////
-        desc_comments_modal.innerHTML = desc.innerHTML;
-        post_id.value = org_post_id.value;
-        desc_image_modal.src = img.src;
-        current_id = org_post_id.value;
-        modal_commentscontainer.innerHTML = commantscoantiner.innerHTML;
-        // modal_commentscontainer.classList.remove("d-none");
-        // append comments_section elements to modal_commentscontainer
-        // commantscoantiner
-        //     .querySelectorAll(".comments_section")
-        //     .forEach((comment) => {
-        //         modal_commentscontainer.appendChild(comment);
-        //     });
+//         ////////// change modal elemrnt ////////
+//         desc_comments_modal.innerHTML = desc.innerHTML;
+//         post_id.value = org_post_id.value;
+//         desc_image_modal.src = img.src;
+//         current_id = org_post_id.value;
+//         modal_commentscontainer.innerHTML = commantscoantiner.innerHTML;
+//         // modal_commentscontainer.classList.remove("d-none");
+//         // append comments_section elements to modal_commentscontainer
+//         // commantscoantiner
+//         //     .querySelectorAll(".comments_section")
+//         //     .forEach((comment) => {
+//         //         modal_commentscontainer.appendChild(comment);
+//         //     });
 
-        // console.log(commantscoantiner);
-        console.log(commantscoantiner.innerHTML);
-        // console.log(modal_commentscontainer);
-    });
-});
+//         // console.log(commantscoantiner);
+//         console.log(commantscoantiner.innerHTML);
+//         // console.log(modal_commentscontainer);
+//     });
+// });
 
 // let setcomments = function (comments) {
 //     console.log(comments);

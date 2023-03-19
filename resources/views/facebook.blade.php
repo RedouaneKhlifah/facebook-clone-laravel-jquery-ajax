@@ -21,7 +21,7 @@
       <!--logo and search-->
       <div class="left-side">
         <div class="logo">
-          <img src="{{asset('img/icons/facebook.svg')}}" alt="" />
+          <a href="/facebook"><img src="{{asset('img/icons/facebook.svg')}}" alt="" /></a>
         </div>
 
         <div class="search">
@@ -78,58 +78,24 @@
       <div class="shortcuts">
         <div class="second-col">
           <h6 class="title">Categories</h6>
+
+
+        
+          @foreach ($Categories as $category)
+          <a href="/facebook/?category={{$category->name}}">
           <div class="menu-item">
             <div class="item-row">
               <div class="icon">
                 <img src="{{asset('img/stories/st-1.jpeg')}}" alt="" />
               </div>
-              <h4>Designers house</h4>
+              <h4>{{$category->name}}</h4>
             </div>
           </div>
+        </a>
+          @endforeach
 
-          <div class="menu-item">
-            <div class="item-row">
-              <div class="icon">
-                <img src="{{asset('img/stories/st-2.jpeg')}}" alt="" />
-              </div>
-              <h4>Script house</h4>
-            </div>
-            <div class="menu-item">
-              <div class="item-row">
-                <div class="icon">
-                  <img src="{{asset('img/stories/page-1.jpg')}}" alt="" />
-                </div>
-                <h4>ui ux Designers workshop</h4>
-              </div>
-            </div>
+          
 
-            <div class="menu-item">
-              <div class="item-row">
-                <div class="icon">
-                  <img src="{{asset('img/stories/st-3.jpeg')}}" alt="" />
-                </div>
-                <h4>netflix movies recommends</h4>
-              </div>
-            </div>
-
-            <div class="menu-item">
-              <div class="item-row">
-                <div class="icon">
-                  <img src="{{asset('img/stories/page-2.jpg')}}" alt="" />
-                </div>
-                <h4>the futur</h4>
-              </div>
-            </div>
-
-            <div class="menu-item">
-              <div class="item-row">
-                <div class="icon">
-                  <img src="{{asset('img/stories/page-3.jpeg')}}" alt="" />
-                </div>
-                <h4>aj smart</h4>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
 
@@ -229,8 +195,28 @@
                     id="textaria"
                     name="Description"
                   ></textarea>
-                  <input name="image" class="imageinput" type="file"  hidden />
+                 
                   <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+
+
+                  <center>
+                  <div class="form-check form-check-inline" >
+                    <input name="category[]" class="form-check-input" type="checkbox" id="inlineCheckbox1" value="1">
+                    <label class="form-check-label" for="inlineCheckbox1">Sport</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input name="category[]" class="form-check-input" type="checkbox" id="inlineCheckbox2" value="2">
+                    <label class="form-check-label" for="inlineCheckbox2">Business</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input name="category[]" class="form-check-input" type="checkbox" id="inlineCheckbox3" value="3">
+                    <label class="form-check-label" for="inlineCheckbox3">Health</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input name="category[]" class="form-check-input" type="checkbox" id="inlineCheckbox3" value="3">
+                    <label class="form-check-label" for="inlineCheckbox3">Other</label>
+                  </div>
+                </center>
 
                   <div id="image-div"></div>
                   <div class="container add_to_post">
@@ -248,11 +234,19 @@
                       <div class="col-2" id="input_image_container">
                         <div class="option">
                           <div class="icon">
-                            <img
-                              src="{{asset('img/icons/photos.svg')}}"
-                              alt=""
-                              class="imageclick"
+                            <label for="image">
+                              <img
+                            src="{{asset('img/icons/photos.svg')}}"
+                            alt=""
+                            class="imageclick"
                             />
+                            </label>
+                            {{-- <img
+                            src="{{asset('img/icons/photos.svg')}}"
+                            alt=""
+                            class="imageclick"
+                            /> --}}
+                            <input name="image" id="image" class="imageinput" type="file"  hidden />
                           </div>
                         </div>
                       </div>
@@ -379,7 +373,7 @@
 
 
 
-                  <form action="{{url('comments')}}" method="post" >
+                  <form action="{{url('comments')}}" method="post" class="comments_form"  >
                     {!! csrf_field() !!}
                   <div id="write-comment" class="write-comment">
                     <div class="user">
@@ -396,7 +390,7 @@
                       />
 
                       <input type="hidden" name="user_id" value="{{auth::user()->id}}">
-                      <input id="post_id" type="hidden" name="post_id" value="" >
+                      <input id="post_id" type="hidden" name="posts_id" value="" >
 
                       <div id="media" class="media">
                         <div id="icon" class="icon">
@@ -416,20 +410,12 @@
                   </form>
 
                   
-                  {{-- @foreach ($posts as $post)
-                  <p>{{$post->id}}</p> 
-                  @foreach($post->comments as $comment)
-                  <script>
-                    setcomments($comment);
-                  </script>
-                  <div class="user user_modal">
+                  <div class="new_commentscontainer">
 
                   </div>
-                  
-                  @endforeach
-                  @endforeach --}}
-                  <div class="modal_commentscontainer">
+                  <div class="commentscontainer">
 
+                   
                   </div>
 
 
@@ -477,19 +463,35 @@
               <div class="desc">
                 <p class="post_description">{{$post->Description}}</p>
               </div>
-              <input class="org_post_id" type="" value="{{$post->id}}">
-
+              
+              @if($post->image != null)
               <div class="post-img">
                 <img class="post_image" src="{{asset('img/'.$post->image)}}" alt="" />
               </div>
+              @endif
 
-              <div class="actions-container">
+              <div class="actions-container ">
+                
+
                 <div class="action">
-                  <div class="icon">
-                    <img src="{{asset('img/icons/thumbs-up.svg')}}" alt="" />
+                  
+                  <form  action="{{url('likes')}}" method="post">
+                    {!! csrf_field() !!}
+                    <div class="icon thumbs_up">
+                      <input type="hidden" name="posts_id" value="{{$post->id}}">
+                      <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                      
+                      @if($post->likes->liked)
+                          <img class="thumbs-up_icon" src="{{asset('img/icons/thumps-up-red.svg')}}" alt="" style="margin-top: -9px" />
+                      @else
+                          <img class="thumbs-up_icon" src="{{asset('img/icons/thumbs-up.svg')}}" alt="" style="margin-top: -9px" />
+                      @endif
                   </div>
+                </form>
+                <span class="likes_Count">{{$post->likes->count}}</span>
                   <span> like </span>
                 </div>
+             
 
                 <div
                   class="action comment_icon"
@@ -501,6 +503,7 @@
                   <div class="icon">
                     <img src="{{asset('img/icons/comment.svg')}}" alt="" />
                   </div>
+                  <span class="comments_Count">{{$post->comments->count}}</span>
                   <span> comment </span>
                 </div>
 
@@ -511,23 +514,7 @@
                   <span> share </span>
                 </div>
               </div>
-              <div class="commentscontainer d-none">
-              @foreach($post->comments as $comment)
-              <div class="comments_section">
-                <div class="user user_modal">
-                  <div class="profile">
-                    <img src="{{asset('img/avatar/hero.png')}}" alt="" />
-                  </div>
-                  <div class="people_comment_container">
-                    <h4 class="user_form_name userrr">Redouane Khlifah</h4>
-                    <p class="user_comment_name">
-                      {{$comment->description}}
-                    </p>
-                  </div>
-                </div>
-              </div>
-              @endforeach
-            </div>
+
 
               <div class="write-comment d-none">
                 <div class="user">
@@ -656,40 +643,171 @@
       crossorigin="anonymous"
     ></script>
 
-    <script src="{{'js/script.js'}}"></script>
+    <script src="{{asset('js/script.js') }}"></script>
 
 
     <script>
-      // $(document).on('click', '.comment_icon', function() {
-      //   var id = $(this).data('id');
-      //   $.ajax({
-      //     url: '/show/' + id,
-      //     type: 'GET',
-      //     // data:{student_id:id},
-      //     success: function(response) {
+      $(document).on('click', '.comment_icon', function() {
+        var id = $(this).data('id');
+        $.ajax({
+          url: '/show/' + id,
+          type: 'GET',
+          // data:{student_id:id},
+          success: function(response) {
 
-      //       console.log(response);
+            console.log(response);
+            $('.new_commentscontainer').empty();
+            $('.commentscontainer').empty();
 
-      //       $('.desc_comments_modal').html(response.post.Description);
-      //       $('.desc_image_modal').attr('src', `{{ asset('img/${response.post.image}') }}`);
-      //       $('#post_id').val(response.post.id);
+
+
+            // Loop through comments and create HTML elements
+            $.each(response.post.comments, function(index, comment) {
+              console.log(comment);
+              console.log(comment.description);
+            var commentHtml =`<div class="comments_section">
+                <div class="user user_modal">
+                  <div class="profile">
+                    <img src="{{asset('img/avatar/hero.png')}}" alt="" />
+                  </div>
+                  <div class="people_comment_container">
+                    <h4 class="user_form_name userrr">${response.post.user.name}</h4>
+                    <p class="user_comment_name">
+                     ${comment.description}
+                    </p>
+                  </div>
+                </div>
+              </div>`
+
+
+
+            // Append comment to container
+            $('.commentscontainer').append(commentHtml);
+            });
+
+
+            $('.desc_comments_modal').html(response.post.Description);
+            $('.desc_image_modal').attr('src', `{{ asset('img/${response.post.image}') }}`);
+            $('#post_id').val(response.post.id);
             
 
-      //     },
-      //     error: function(xhr, status, error) {
-      //       console.log(error);
-      //     }
-      //     });
+          },
+          error: function(xhr, status, error) {
+            console.log(error);
+          }
+          });
 
-      // });
-
-
-      // $(document).on('submit','#comment_input'function(){
-      //   console.log('workin');
-      // })
-      
-      // $(document).on('click',)
+      });
       
       </script> 
+
+      <script>
+
+$(document).on('click', '.thumbs_up', function() {
+  let form = $(this).closest('form');
+  let clikedelement  = $(this)
+  let span_counter = form.parent().find('.likes_Count')
+  let currentLikes  = parseInt(span_counter.html())
+  let formData = form.serialize();
+  clikedelement.prop('disabled', true);
+  $.ajax({
+    url: form.attr('action'),
+    type: 'POST',
+    data: formData,
+   
+    success: function(response) {
+
+      console.log(response);
+      
+      
+
+      currentLikes = currentLikes+1
+
+      span_counter.html(currentLikes)
+      console.log(currentLikes);
+      
+      clikedelement.find('.thumbs-up_icon').attr('src', `{{ asset('img/icons/thumps-up-red.svg') }}`);
+
+      
+      // handle success response here
+    },
+    error: function(xhr, status, error) {
+      currentLikes = currentLikes -1
+      span_counter.html(currentLikes)
+      console.log(currentLikes);
+    
+      clikedelement.find('.thumbs-up_icon').attr('src', `{{ asset('img/icons/thumbs-up.svg') }}`);
+      console.log( $(this).find('.thumbs-up_icon'));
+    
+  
+    },complete: function() {
+      // Re-enable the button
+      clikedelement.prop('disabled', false);
+    }
+  });
+  
+  return false; // prevent default form submission
+});
+
+
+      </script>
+
+
+
+
+      <script>
+
+
+
+    $(document).on('submit', '.comments_form', function() {
+        // var id = $(this).data('id');
+        // console.log(this);
+        var comments_Counter = parseInt($('.comments_Count').html())
+        let formData = $(this).serialize();
+        $.ajax({
+          url: '/comments',
+          type: 'post',
+          data:formData,
+          success: function(response) {
+
+            comments_Counter++
+            $('.comments_Count').html(comments_Counter)
+            $('.new_commentscontainer').empty();
+            $('#comment_input').val('');
+           
+            let html = `<div class="comments_section">
+                <div class="user user_modal">
+                  <div class="profile">
+                    <img src="{{asset('img/avatar/hero.png')}}" alt="" />
+                  </div>
+                  <div class="people_comment_container">
+                    <h4 class="user_form_name userrr">${response.post.user.name}</h4>
+                    <p class="user_comment_name">
+                     ${response.post.description}
+                    </p>
+                  </div>
+                </div>
+              </div>`;
+
+
+              
+              $('.new_commentscontainer').prepend(html);
+
+            console.log(response);
+            console.log(response.post.user.name);
+            console.log(response.post.description);
+
+          },
+          error: function(xhr, status, error) {
+            console.log(error);
+          }
+          // });
+      
+         
+      });
+      return false
+    })
+      </script>
+
   </body>
 </html>

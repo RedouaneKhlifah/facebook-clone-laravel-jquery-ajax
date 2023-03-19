@@ -37,7 +37,7 @@
                     
                     <button class="btn btn-block">Login</button>
                     <p class="message">
-                        Not Registred? <Link to="/signup">Create an account</Link>
+                        Not Registred? <a href="/register">Create an account</a>
                     </p>
                 </form>
             </div>
